@@ -1,13 +1,18 @@
-import pandas as pd, requests, regex, json, requests, os
+import pandas as pd, sys, requests, json, requests, os, subprocess
+import regex
 #YouTube API configuration 
 
 # ---> YouTube OAuth 2.0 configuration 
 #Once we have the unique video id we will add the video to a private playlist 
 #This action will require OAuth 2.0 token because we are accessing/modifying private user data
-import googleapiclient.discovery,  google_auth_oauthlib.flow, googleapiclient.errors 
-from google.oauth2 import credentials
-
-
+try: 
+    import googleapiclient.discovery,  google_auth_oauthlib.flow, googleapiclient.errors 
+    from google.oauth2 import credentials
+except: 
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install','google-api-python-client'])
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install','google-auth-oauthlib'])
+    import googleapiclient.discovery,  google_auth_oauthlib.flow, googleapiclient.errors 
+    from google.oauth2 import credentials
 
 class YouTubeAPI:
     def __init__(self):
