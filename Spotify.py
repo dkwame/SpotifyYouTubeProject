@@ -1,12 +1,6 @@
 import requests, json, pandas as pd, os, pip, subprocess, sys
-
-try: 
-    from oauthlib.oauth2 import BackendApplicationClient
-except: 
-    subprocess.check_call([sys.executable,'-m', 'pip','install','requests_oauthlib'])
-    #pip install --upgrade  google-auth-httplib2 google-auth-oauthlib
-    from oauthlib.oauth2 import BackendApplicationClient
-    from requests_oauthlib import OAuth2Session
+from oauthlib.oauth2 import BackendApplicationClient
+from requests_oauthlib import OAuth2Session
 #Create definitions for the OAuth 2.0 configuration for both Spotify and YouTube 
 #Spotify OAuth 2.0 configuration
 
@@ -77,7 +71,8 @@ class SpotifyAPI:
         df = pd.DataFrame(Spotify_dict, columns=Spotify_dict.keys())
         return df
 
-import keyring, psycopg
+import keyring
+import psycopg
 class DB: 
 #Create definitions for DB connections and actions 
 #connect to the database
