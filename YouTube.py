@@ -150,3 +150,11 @@ class YouTubeAPI:
             }
         response = requests.delete(url, headers=headers)
         return response
+    
+    def get_playlist_info(self,**kwargs):
+        import requests
+        import json
+        YT_playlist_id = kwargs.get("YT_playlist_id",self.YT_playlist)
+        url = f"https://www.googleapis.com/youtube/v3/playlistItems?playlistId={YT_playlist_id}&maxResults=5&part=snippet&key={self.YouTube_API_key}"
+        response = requests.get(url)
+        return response.json()
