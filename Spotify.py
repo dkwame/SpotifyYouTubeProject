@@ -13,6 +13,7 @@ class SpotifyAPI:
         self.auth_url = "https://accounts.spotify.com/api/token"
         self.client_id = Spotify_Creds["web"]["client_id"]
         self.client_secret = Spotify_Creds["web"]["client_secret"]
+        self.Spot_playlist_id = '4BkimjsZvS8s45peOfA7bR'
         
     #kwargs was used just in case another client_id, client_secret, etc... was desired to be used
     #otherwise our default client_id, client_secret, etc... would be used 
@@ -71,6 +72,15 @@ class SpotifyAPI:
         df = pd.DataFrame(Spotify_dict, columns=Spotify_dict.keys())
         return df
 
+    def search(self, song: str):
+        import requests
+        import json
+        song = song.replace(" ","+")
+        headers = {"Authorization": f"Bearer {SpotifyAPI().refresh_token()}"}
+        url = f"https://api.spotify.com/v1/search?q={song}&type=track&limit=1"
+        response = requests.get(url, headers=headers).json()
+        return response
+
 import keyring
 import psycopg
 class DB: 
@@ -82,6 +92,7 @@ class DB:
             #self.conn.autocommit = True
         except Exception as e:
             print(e)
+        self.Spot_playlist_id = '4BkimjsZvS8s45peOfA7bR'
         self.DB_cols = ['playlist_id', 'artist', 'artist_id', 'track', 'track_id','duration','date_added', 'video_id','playlist_list_id']
 
 #connect_to_db().cursor().execute("SELECT * from spotify.playlist_ref").fetchall()
