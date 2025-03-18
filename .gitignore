@@ -1,0 +1,4 @@
+#git ignore the following file types 
+*.json 
+*.csv 
+*.pyc
