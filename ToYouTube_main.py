@@ -1,6 +1,9 @@
 import pandas as pd, os, sys, requests, json 
-if os.getcwd() not in sys.path: 
-    sys.path.insert(0, os.getcwd())
+for root, directories, files in os.walk(os.getcwd(),topdown=False):
+    if root.split('/')[-1] == 'SpotifyYouTubeProject':
+        print(root)
+        os.chdir(root)
+os.getcwd()
 from Spotify import DB, SpotifyAPI
 from YouTube import YouTubeAPI
 
